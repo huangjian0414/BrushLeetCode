@@ -17,6 +17,33 @@ class EasyManager: XCTestCase {
         //reverseInt()
         //isPalindrome()
         //romanToInt()
+        //longestCommonPrefix()
+        //isValid()
+        mergeTwoLists()
+    }
+    //MARK: - 合并链表
+    func mergeTwoLists() {
+        let l1 = ListNode.init(1)
+        l1.next = ListNode.init(3)
+        l1.next?.next = ListNode.init(8)
+        let l2 = ListNode.init(5)
+        l2.next = ListNode.init(20)
+        l2.next?.next = ListNode.init(6)
+        var list = EasyCode.mergeTwoLists(l1, l2)
+        while list != nil {
+            list = list?.next
+            print(list?.val)
+        }
+    }
+    //MARK: - 最长公共前缀
+    func isValid() {
+        let pre = EasyCode.isValid("{()}")
+        print(pre)
+    }
+    //MARK: - 最长公共前缀
+    func longestCommonPrefix() {
+        let pre = EasyCode.longestCommonPrefix(["flower","flow","flight"])
+        print(pre)
     }
     //MARK: - 罗马数字转整数
     func romanToInt() {

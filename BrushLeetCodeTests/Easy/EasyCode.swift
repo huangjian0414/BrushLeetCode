@@ -75,4 +75,95 @@ struct EasyCode {
         }
         return sum
     }
+    //MARK: - 最长公共前缀(水平扫描)
+    static func longestCommonPrefix(_ strs: [String]) -> String {
+        guard strs.count > 0 else {
+            return ""
+        }
+        var pre = strs[0]
+        for i in 1..<strs.count {//从左到右依次筛选
+            while strs[i].hasPrefix(pre) == false
+            {
+                pre.removeLast()
+                if pre.count == 0
+                {
+                    return ""
+                }
+            }
+        }
+        return pre
+//        return longestCommonPrefix(strs, left: 0, right: strs.count-1)
+    }
+    //MARK: - 最长公共前缀(分治法) 貌似更久
+    static func longestCommonPrefix(_ strs: [String],left: Int,right: Int) -> String {
+        if left == right {
+            return strs[left]
+        }
+        let mid = (left + right)/2;
+        let lcpLeft =   longestCommonPrefix(strs, left: left , right: mid);
+        let lcpRight =  longestCommonPrefix(strs, left: mid + 1,right: right);
+    
+        return commonPrefix(left: lcpLeft, right: lcpRight);
+    }
+    static func commonPrefix(left: String,right: String) -> String {
+        let minCount = min(left.count,right.count)
+        for i in 0..<minCount { //左右俩个数依次对比，筛选出公共部分
+            if String(left[left.index(left.startIndex, offsetBy: i)...left.index(left.startIndex, offsetBy: i)]) != String(right[right.index(right.startIndex, offsetBy: i)...right.index(right.startIndex, offsetBy: i)])
+            {
+                return String(left[left.startIndex..<left.index(left.startIndex, offsetBy: i)])
+            }
+        }
+        return String(left[left.startIndex..<left.index(left.startIndex, offsetBy: minCount)])
+    }
+    //MARK: - 有效符号(栈思想，后进先出)
+    static func isValid(_ s: String) -> Bool {
+        var array = [Character]()
+        for c in s {
+            switch c {
+            case "{","(","[" :
+                array.append(c) //入栈
+                break
+            case "}" : //删除最后的一个与之相应的符号，否则不是有效符号
+                guard array.last == "{" else { return false }
+                array.removeLast()
+                break
+            case ")" :
+                guard array.last == "(" else { return false }
+                array.removeLast()
+                break
+            case "]" :
+                guard array.last == "[" else { return false }
+                array.removeLast()
+                break
+            default:
+                break
+            }
+        }
+        return array.isEmpty
+    }
+    
+    //MARK: - 合并链表
+    static func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        if l1 == nil {
+            return l2
+        }else if l2 == nil {
+            return l1
+        }else if l1!.val < l2!.val {
+            l1?.next = mergeTwoLists(l1?.next, l2)
+            return l1
+        }else {
+            l2?.next = mergeTwoLists(l1, l2?.next)
+            return l2
+        }
+    }
 }
+
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
+
