@@ -142,7 +142,7 @@ struct EasyCode {
         return array.isEmpty
     }
     
-    //MARK: - 合并链表
+    //MARK: - 合并俩个有序链表
     static func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
         if l1 == nil {
             return l2
@@ -156,6 +156,7 @@ struct EasyCode {
             return l2
         }
     }
+    
 }
 
 public class ListNode {

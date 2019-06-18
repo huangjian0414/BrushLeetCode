@@ -21,18 +21,18 @@ class EasyManager: XCTestCase {
         //isValid()
         mergeTwoLists()
     }
-    //MARK: - 合并链表
+    //MARK: - 合并俩个有序链表
     func mergeTwoLists() {
         let l1 = ListNode.init(1)
         l1.next = ListNode.init(3)
         l1.next?.next = ListNode.init(8)
         let l2 = ListNode.init(5)
-        l2.next = ListNode.init(20)
-        l2.next?.next = ListNode.init(6)
+        l2.next = ListNode.init(7)
+        l2.next?.next = ListNode.init(20)
         var list = EasyCode.mergeTwoLists(l1, l2)
         while list != nil {
+            print(list!.val)
             list = list?.next
-            print(list?.val)
         }
     }
     //MARK: - 最长公共前缀
