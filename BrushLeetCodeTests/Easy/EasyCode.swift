@@ -156,6 +156,100 @@ struct EasyCode {
             return l2
         }
     }
+    //MARK: - 删除排序数组中的重复项
+    static func removeDuplicates(_ nums: inout [Int]) -> Int {
+        guard nums.count != 0 else {return 0}
+        
+        var i = 0
+        for j in 1..<nums.count {
+            if nums[i] != nums[j]{
+                i += 1
+                nums[i] = nums[j] //不相同的覆盖相同的
+            }
+        }
+        return i + 1
+        
+        
+//        if nums.count == 1 {
+//            return 1
+//        }
+//        var uniq = Set.init(arrayLiteral: nums)
+//        nums = nums.filter {//去重
+//            return uniq.insert([$0]).inserted
+//        }
+//        return nums.count
+        
+    }
+    //MARK: - 移除元素
+    static func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+        var i = 0
+        for j in 0..<nums.count {
+            if nums[j] != val{ // i 为等于val 的下标，不相等的时候，覆盖掉
+                nums[i] = nums[j]
+                i += 1
+            }
+        }
+        return i
+    }
+    //MARK: - 实现strStr()
+    static func strStr(_ haystack: String, _ needle: String) -> Int {
+        if needle.isEmpty {
+            return 0
+        }
+        if haystack.count < needle.count {
+            return -1
+        }
+        //leetcode 算的速度和xcode算的速度，完全不一样，系统方法xcodeb显示很快，leetcode直接超时，leetcode通过的算法，xcode 超时
+//        let s1 = haystack as NSString
+//        let range = s1.range(of: needle)
+//        if range.length == 0 {
+//            return -1
+//        }
+//        return range.location
+        
+        for i in 0...(haystack.count-needle.count) {
+            if (haystack[haystack.index(haystack.startIndex, offsetBy: i)..<haystack.index(haystack.startIndex, offsetBy: i + needle.count)] == needle) { //截取字符串看是否与needle相等
+                return i
+            }
+        }
+        return -1
+        
+    }
+    
+    //MARK: - 搜索插入位置  nums 为有序的
+    static func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+        
+//        for j in 0..<nums.count {
+//            if nums[j] >= target{//因为是有序的，所以找到第一个大于 就直接return了
+//                return j
+//            }
+//        }
+//        return nums.count
+        
+        var low = 0
+        var high = nums.count
+        var mid = 0
+        
+        while low < high {
+            mid = (high + low) / 2  //2分，leetcode 时间一样
+            if nums[mid] > target {
+                high = mid
+            }else if nums[mid] < target {
+                low = mid + 1
+            }else{
+                return mid
+            }
+        }
+        return low
+        
+    }
+    //MARK: - 报数
+    static func countAndSay(_ n: Int) -> String {
+        
+        
+        return ""
+    }
+    
     
 }
 
