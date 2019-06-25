@@ -243,11 +243,19 @@ struct EasyCode {
         return low
         
     }
-    //MARK: - 报数
-    static func countAndSay(_ n: Int) -> String {
-        
-        
-        return ""
+    //MARK: - 最大子序和
+    static func maxSubArray(_ nums: [Int]) -> Int {
+        var maxValue = nums[0]
+        var sum = 0
+        for num in nums {
+            if sum > 0{ //sum 对结果有增益效果，则sum保留并加上当前遍历数字
+                sum += num
+            }else{//sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字
+                sum = num
+            }
+            maxValue =  max(maxValue, sum)//每次都比较maxValue和sum的大小，并将maxValue置为最大值
+        }
+        return maxValue
     }
     
     

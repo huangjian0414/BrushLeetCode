@@ -11,6 +11,12 @@ import XCTest
 class EasyManager: XCTestCase {
 
 
+    //MARK: - 最大子序和
+    func testMaxSubArray(){
+        
+        let num = EasyCode.maxSubArray([-2,1,3,-3,6,-1,4,-2,2])
+        print(num)
+    }
     //MARK: - 搜索插入位置  nums 为有序的
     func testSearchInsert(){
         
