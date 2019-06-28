@@ -10,7 +10,28 @@ import XCTest
 
 class EasyManager: XCTestCase {
 
-
+    //MARK: - x 的平方根
+    func testMySqrt() {
+        let num = EasyCode.mySqrt(38)
+        print(num)
+    }
+    
+    //MARK: - 二进制求和
+    func testAddBinary() {
+        let s = EasyCode.addBinary("1010", "1011")
+        print(s)
+    }
+    //MARK: - 加一
+    func testPlusOne() {
+        let array = EasyCode.plusOne([1,2,4,6,9])
+        print(array)
+    }
+    
+    //MARK: - 最后一个单词的长度
+    func testLengthOfLastWord() {
+        let num = EasyCode.lengthOfLastWord("hello world  ")
+        print(num)
+    }
     //MARK: - 最大子序和
     func testMaxSubArray(){
         

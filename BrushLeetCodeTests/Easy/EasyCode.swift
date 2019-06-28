@@ -257,8 +257,104 @@ struct EasyCode {
         }
         return maxValue
     }
-    
-    
+    //MARK: - 最后一个单词的长度
+    static func lengthOfLastWord(_ s: String) -> Int {
+
+        var i = 0
+        for v in s.reversed() {
+            if v == " "{
+                if i > 0 { //已经查到不是空格的，这时候遇到空格，就是最后的单词了
+                    return i
+                }
+            }else{
+                i += 1 //不是空格 +1
+            }
+        }
+        return i
+    }
+    //MARK: - 加一
+    static func plusOne(_ digits: [Int]) -> [Int] {
+//        var i = digits.count - 1
+        var arr = digits
+//        while i >= 0 {
+//            if arr[i] == 9{
+//                arr[i] = 0
+//                if i == 0{//如果是999这种，要多插一位
+//                    arr.insert(1, at: 0)
+//                }
+//                i -= 1
+//            }else{ //不等于9。直接return
+//                arr[i] += 1
+//                return arr
+//            }
+//        }
+        for (i,_) in arr.enumerated().reversed() {
+            arr[i] += 1
+            arr[i] %= 10
+            if arr[i] != 0{
+                return arr
+            }
+        }
+        arr.insert(1, at: 0)
+        return arr;
+    }
+    //MARK: - 二进制求和
+    static func addBinary(_ a: String, _ b: String) -> String {//leetcode 84ms 有点水
+        let aArray = Array(a) // 转数组 32ms
+        let bArray = Array(b)
+        let count = max(aArray.count, bArray.count)
+        var s = ""
+        var j = 0
+        for i in 0..<count {
+            var aNum = 0;
+            if i < aArray.count{
+//                aNum = Int(a[a.index(a.startIndex, offsetBy: a.count-i-1)...a.index(a.startIndex, offsetBy: a.count-i-1)])!
+                aNum = Int(String(aArray[aArray.count-i-1]))!
+            }
+            var bNum = 0;
+            if i < bArray.count{
+//                bNum = Int(b[b.index(b.startIndex, offsetBy: b.count-i-1)...b.index(b.startIndex, offsetBy: b.count-i-1)])!
+                bNum = Int(String(bArray[bArray.count-i-1]))!
+            }
+            let k = aNum + bNum + j
+            var x = k
+            if k >= 2 {
+                j = 1
+                x = k - 2
+            }else{
+                j = 0
+            }
+            s.insert(contentsOf: "\(x)", at: s.startIndex)
+            if i == (count - 1) && k >= 2{
+                s.insert("1", at: s.startIndex)
+            }
+        }
+        return s
+    }
+    //MARK: - x 的平方根 (牛顿迭代法)
+    static func mySqrt(_ x: Int) -> Int {
+        if x == 0 {
+            return 0
+        }
+        //20ms
+//        var last: Double = 0
+//        var res: Double =  Double(x/2 + 1)
+//        while res != last {
+//            last = res
+//            res = (res+Double(x)/res)/2
+//            print("res -- \(res)-- last --\(last)")
+//        }
+//        return Int(res)
+        
+        // 12ms
+        var last = x/2 + 1
+        var res = x/2 + 1
+        while res*last > x {
+            last = res
+            res = (res+x/res)/2
+        }
+        return res
+    }
 }
 
 public class ListNode {
