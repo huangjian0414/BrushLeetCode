@@ -355,6 +355,59 @@ struct EasyCode {
         }
         return res
     }
+    //MARK: - 爬楼梯 (动态规划)  4ms
+    static func climbStairs(_ n: Int) -> Int {
+        if n<=3 {
+            return n
+        }
+        var array = [Int](repeating: 0, count: n+1)
+        array[2] = 2
+        array[3] = 3
+        for i in 4...n { //一层层的加，算方法数
+            array[i] = array[i-1] + array[i-2] //数组存储到达第i层的方法数
+        }
+        return array[n]
+    }
+    
+    //MARK: - 删除排序链表中的重复元素
+    static func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        guard head?.next != nil else {
+            return head
+        }
+        var current = head
+        while current?.next != nil { //递归
+            if current?.val == current?.next?.val{
+                current?.next = current?.next?.next
+            }else{
+                current = current?.next
+            }
+        }
+        return head
+    }
+    //MARK: - 合并两个有序数组
+    static func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
+        var i = m - 1
+        var j = n - 1
+        var p = m + n - 1 //合并后数组大小
+        while i >= 0 && j >= 0 {
+            if nums1[i] > nums2[j]
+            {
+                nums1[p] = nums1[i]
+                i -= 1
+            }else{
+                nums1[p] = nums2[j]
+                j -= 1
+            }
+            p -= 1
+        }
+        while j >= 0 {
+            nums1[p] = nums2[j]
+            j -= 1
+            p -= 1
+        }
+        print(nums1)
+    }
+    
 }
 
 public class ListNode {

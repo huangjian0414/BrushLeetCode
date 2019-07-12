@@ -10,6 +10,33 @@ import XCTest
 
 class EasyManager: XCTestCase {
 
+    //MARK: - 合并两个有序数组
+    func testMergeTwoArray() {
+        var array1 = [1,5,8,9,22,0,0,0]
+        let array2 = [4,10,26]
+        EasyCode.merge(&array1, 5, array2, 3)
+    }
+    
+    //MARK: - 删除排序链表中的重复元素
+    func testDeleteDuplicates() {
+        let l1 = ListNode.init(1)
+        l1.next = ListNode.init(3)
+        l1.next?.next = ListNode.init(8)
+        l1.next?.next?.next = ListNode.init(8)
+        l1.next?.next?.next?.next = ListNode.init(20)
+        var head = EasyCode.deleteDuplicates(l1)
+        while head?.next != nil {
+            print(head!.val)
+            head = head?.next
+        }
+    }
+    
+    //MARK: - 爬楼梯
+    func testClimbStairs() {
+        let num = EasyCode.climbStairs(3)
+        print(num)
+    }
+    
     //MARK: - x 的平方根
     func testMySqrt() {
         let num = EasyCode.mySqrt(38)
