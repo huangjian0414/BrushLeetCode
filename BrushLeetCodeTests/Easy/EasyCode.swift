@@ -407,7 +407,112 @@ struct EasyCode {
         }
         print(nums1)
     }
+    //MARK: - 相同的树 (递归)
+    static func isSameTree(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
+        if (p == nil) && (q == nil)  {return true}
+        if p == nil || q == nil {return false}
+        if p?.val != q?.val {return false}
+        
+        return self.isSameTree(p?.right, q?.right) && self.isSameTree(p?.left, q?.left)
+    }
+    //MARK: - 对称二叉树 (递归)
+    static func isSymmetric(_ root: TreeNode?) -> Bool {
+        guard root != nil else { return true }
+        return EasyCode.isMirror(p: root, q: root)
+    }
     
+    static func isMirror(p: TreeNode?, q: TreeNode?) -> Bool{
+        if (p == nil) && (q == nil)  {return true}
+        if p == nil || q == nil {return false}
+        if p?.val != q?.val {return false}
+        return self.isMirror(p: p?.left, q: q?.right) && self.isMirror(p: p?.right, q: q?.left)
+    }
+    //MARK: - 二叉树的最大深度
+    static func maxDepth(_ root: TreeNode?) -> Int {
+        guard root != nil else {return 0}
+        return max(maxDepth(root?.left), maxDepth(root?.right)) + 1
+    }
+    //MARK: - 二叉树的层次遍历 II(44ms)
+    static func levelOrderBottom(_ root: TreeNode?) -> [[Int]] {
+        guard root != nil else {return []}
+        var nodes = [TreeNode]()
+        nodes.append(root!)
+        var result = [[Int]]()
+        while !nodes.isEmpty {
+            var values = [Int]()
+            for _ in 0..<nodes.count{
+                let node = nodes.removeFirst()
+                values.append(node.val) //将一层的数存进valus
+                //将每一层节点存进nodes
+                if node.left != nil {
+                    nodes.append(node.left!)
+                }
+                if node.right != nil {
+                    nodes.append(node.right!)
+                }
+            }
+            result.insert(values, at: 0) //将每一层的数组差入到result数组最前面
+        }
+        
+        return result
+    }
+    //MARK: - 二叉树的层次遍历 (20ms)
+    var results = [[Int]]()
+    func levelOrderBottom(_ root: TreeNode?) -> [[Int]] {
+        guard root != nil else {return []}
+        var mine = self
+        appendNode(root!, of: 0)
+        mine.results.reverse()
+        return results
+    }
+    func appendNode(_ node: TreeNode, of depth: Int) {
+        var mine = self
+        if results.count > depth {
+            mine.results[depth].append(node.val)
+        } else {
+            mine.results.append([node.val])
+        }
+        if node.left != nil {
+            appendNode(node.left!, of: depth+1)
+        }
+        if node.right != nil {
+            appendNode(node.right!, of: depth+1)
+        }
+    }
+    //MARK: - 将有序数组转换为二叉搜索树
+    /*
+     若其左子树存在，则其左子树中每个节点的值都不大于该节点值；
+     若其右子树存在，则其右子树中每个节点的值都不小于该节点值
+     */
+    static func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
+        guard nums.count > 0 else {
+            return nil
+        }
+        return arrayToBST(nums: nums, left: 0, right: nums.count)
+    }
+    static func arrayToBST(nums: [Int], left: Int, right: Int) -> TreeNode? {
+        if left >= right {
+            return nil
+        }
+        let mid = left + (right - left)/2  //取中间为根节点
+        let node = TreeNode.init(nums[mid])
+        //左右节点依次进行同样的操作
+        node.left = arrayToBST(nums: nums, left: left, right: mid) 
+        node.right = arrayToBST(nums: nums, left: mid+1, right: right)
+
+        return node
+    }
+    //MARK: - 平衡二叉树 (一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1)
+    static func isBalanced(_ root: TreeNode?) -> Bool {
+        guard root != nil else {
+            return true
+        }
+        return abs(height(node: root?.right) - height(node: root?.left)) < 2 && isBalanced(root?.left) && isBalanced(root?.right)
+    }
+    static func height(node: TreeNode?) -> Int {
+        if node == nil { return 0 }
+        return max(height(node: node?.left), height(node: node?.right)) + 1
+    }
 }
 
 public class ListNode {
@@ -419,3 +524,13 @@ public class ListNode {
     }
 }
 
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.left = nil
+        self.right = nil
+    }
+}

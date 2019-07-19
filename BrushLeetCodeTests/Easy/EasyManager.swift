@@ -10,6 +10,54 @@ import XCTest
 
 class EasyManager: XCTestCase {
 
+    
+    //MARK: - 平衡二叉树
+    func testIsBalanced() {
+        let root = TreeNode.init(1)
+        root.left = TreeNode.init(2)
+        root.right = TreeNode.init(2)
+        root.left?.left = TreeNode.init(3)
+        root.left?.left?.left = TreeNode.init(5)
+        let isBalanced = EasyCode.isBalanced(root)
+        print(isBalanced)
+    }
+    
+    //MARK: - 将有序数组转换为二叉搜索树
+    func testSortedArrayToBST() {
+        let node = EasyCode.sortedArrayToBST([-10,-3,0,5,9])
+    }
+    
+    //MARK: - 二叉树的最大深度
+    func testMaxDepth() {
+        let root = TreeNode.init(1)
+        root.left = TreeNode.init(2)
+        root.right = TreeNode.init(2)
+        let height = EasyCode.maxDepth(root)
+        print(height)
+    }
+    
+    //MARK: - 对称二叉树
+    func testIsSymmetric() {
+        let root = TreeNode.init(1)
+        root.left = TreeNode.init(2)
+        root.right = TreeNode.init(2)
+       
+        let isSymmetric = EasyCode.isSymmetric(root)
+        print(isSymmetric)
+    }
+    //MARK: - 相同的树
+    func testIsSameTree() {
+        let p = TreeNode.init(1)
+        p.left = TreeNode.init(2)
+        p.right = TreeNode.init(3)
+        
+        let q = TreeNode.init(1)
+        q.left = TreeNode.init(2)
+        q.right = TreeNode.init(3)
+        let isSame = EasyCode.isSameTree(p, q)
+        print(isSame)
+    }
+    
     //MARK: - 合并两个有序数组
     func testMergeTwoArray() {
         var array1 = [1,5,8,9,22,0,0,0]
