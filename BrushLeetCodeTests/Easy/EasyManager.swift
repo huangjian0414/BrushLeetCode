@@ -11,6 +11,29 @@ import XCTest
 class EasyManager: XCTestCase {
 
     
+    //MARK: - 路径总和
+    func testHasPathSum() {
+        let root = TreeNode.init(1)
+        root.left = TreeNode.init(2)
+        root.right = TreeNode.init(2)
+        root.right?.right = TreeNode.init(4)
+        root.left?.left = TreeNode.init(3)
+        root.left?.left?.left = TreeNode.init(5)
+        let bo = EasyCode.hasPathSum(root, 6)
+        print(bo)
+    }
+    //MARK: - 二叉树的最小深度
+    func testMinDepth() {
+        let root = TreeNode.init(1)
+        root.left = TreeNode.init(2)
+        root.right = TreeNode.init(2)
+        //root.right?.right = TreeNode.init(4)
+        root.left?.left = TreeNode.init(3)
+        root.left?.left?.left = TreeNode.init(5)
+        let minDepth = EasyCode.minDepth(root)
+        print(minDepth)
+    }
+    
     //MARK: - 平衡二叉树
     func testIsBalanced() {
         let root = TreeNode.init(1)

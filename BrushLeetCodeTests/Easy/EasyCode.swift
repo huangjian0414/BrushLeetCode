@@ -513,6 +513,52 @@ struct EasyCode {
         if node == nil { return 0 }
         return max(height(node: node?.left), height(node: node?.right)) + 1
     }
+    //MARK: - 二叉树的最小深度
+    /*
+     最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+     说明: 叶子节点是指没有子节点的节点。
+     */
+    static func minDepth(_ root: TreeNode?) -> Int {
+        guard root != nil else {
+            return 0
+        }
+        //左孩子和右孩子都为空的情况，说明到达了叶子节点，直接返回1
+        if root?.left == nil && root?.right == nil {
+            return 1
+        }
+        let leftCount = minDepth(root?.left)
+        let rightCount = minDepth(root?.right)
+        //左孩子和右孩子其中一个为空,返回不为空的孩子节点的深度
+        if root?.left == nil || root?.right == nil {
+            return leftCount + rightCount + 1
+        }
+        //左孩子和右孩子都不为空
+        return min(leftCount, rightCount)+1;
+    }
+    
+    //MARK: - 路径总和
+    static func hasPathSum(_ root: TreeNode?, _ sum: Int) -> Bool {
+        guard root != nil else {
+            return false
+        }
+        if sum == root!.val && root?.left == nil && root?.right == nil {
+            return true
+        }
+        return hasPathSum(root?.left, sum-root!.val) || hasPathSum(root?.right, sum-root!.val)
+        //return hasPathSumHelper(root, sum)
+    }
+//    static func hasPathSumHelper(_ root: TreeNode?, _ sum: Int) -> Bool{
+//        if root?.left == nil && root?.right == nil {
+//            return root?.val == sum
+//        }
+//        if root?.left == nil {
+//            return hasPathSumHelper(root?.right, sum-root!.val)
+//        }
+//        if root?.right == nil {
+//            return hasPathSumHelper(root?.left, sum-root!.val)
+//        }
+//        return hasPathSumHelper(root?.left, sum-root!.val) || hasPathSumHelper(root?.right, sum-root!.val)
+//    }
 }
 
 public class ListNode {
